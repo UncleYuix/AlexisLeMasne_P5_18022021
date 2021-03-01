@@ -9,12 +9,13 @@
     <!-- Bootstrap CSS -->
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    
     <title> Orinico </title>
 </head>
 
 
-
+<html>
+    
 <body>
     
  <div class="container-fluid">
@@ -23,7 +24,7 @@
             <div class="row">
                 <nav class="col navbar navbar-expand-lg navbar-dark">
                 <a class="navbar-brand" href="index.html">
-                    <img src="images/logo.png" width="210" height="120" alt="Site logo">
+                    <img src="images/logo.png" width="200" height="120" alt="Site logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,8 +35,9 @@
                         <a class="nav-link" href="index.html">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Panier </a>
-                        
+                        <a class="nav-link" href="panier.html">Panier</a>
+                    </li>
+
                     </ul>
                 </div>
                 </nav>
@@ -43,54 +45,21 @@
             </div>
     </header>     
 
-    <div class="row mt-3">
-        <div class="col-12 col-lg-6">
-                <img src="images/vcam_1.jpg" alt="appareil_photo_1" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title"> Une belle bête </h5>
-                    <p class="card-text"> C'est pas un appareil photo de pérave ça ! </p>
-                 </div>
+
+    <article>
+      <div class="row">
+        <div class="col-12">
+          <div class="jumbotron text-center font-italic">
+              <h1> PAYEMENT VALIDE !</h1>
+              <h2> A bientot chez nous </h2>
+           </div>
         </div>
-
-        <div class="col-12 col-lg-3">
-
-            <form>
-                <div class="form-row align-items-center">
-                  <div class="col-auto my-">
-                    <label class="mr-sm-2" for="inlineFormCustomSelect"> Customisez-votre appareil - taille des lentilles </label>
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                     
-                           
-                          
-                      <option selected>Choix...</option>
-                      <option value="1">La grosse lentille </option>
-                      <option value="2"> La petite lentille </option>
-                      <option value="3"> La giga Lentille </option>
-                    </select>
-                  </div>
-                  
-
-
-                  <div class="col-auto my-1">
-                      
-                    <button type="submit" class="btn btn-primary">Commandez </button>
-                  </div>
-               
-            </form>
-
-              <div class="col-auto my-1">     
-                <a href="panier.html" class="btn btn-info" role="button">  <i class="fa fa-shopping-cart"></i> Panier </a>
-                
-                </div>
-         </div>        
-     </div>
-     
- </div>
+      </div>
 
 
 
-<footer>
-        <div class="bg-light pt-5">
+     <footer>
+        <div class="bg-light">
             <div class="container">
               <div class="row">
                 <div class="col">
@@ -120,7 +89,6 @@
  </div>
 </body>
 
-<script src="indexScript.js"></script>
+<script src="backend/indexScript.js"></script>
 
 </html>
-   
