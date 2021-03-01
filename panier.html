@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <title> Orinico </title>
+</head>
+
+
+
+<body>
+    
+ <div class="container-fluid">
+    <header>
+         <div class="bg-dark">
+            <div class="row">
+                <nav class="col navbar navbar-expand-lg navbar-dark">
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo.png" width="200" height="120" alt="Site logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbarContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Panier </a>         
+                    </li>
+                    </ul>
+                </div>
+                </nav>
+            </div>
+            </div>
+    </header>     
+
+    <div class="article">
+    <div class="row mt-3">
+        <div class="col-12 col-lg-6">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Produit</th>
+                    <th scope="col">Quantité </th>
+                    <th scope="col">Prix </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Appareil2</td>
+                    <td>1</td>
+                    <td>450€ </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+
+        <div class="col-12 col-lg-4">
+
+            <form>
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Jean">
+                      </div>
+                      <div class="col">
+                        <input type="text" class="form-control" placeholder="Neymar">
+                      </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputAddress">Addresse</label>
+                  <input type="text" class="form-control" id="inputAddress" placeholder="13 place du Vélodrôme">
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputCity"> Ville </label>
+                    <input type="text" class="form-control" id="inputCity">
+                  </div>
+    
+                  <div class="form-group col-md-6">
+                    <label for="inputZip">Code Postal </label>
+                    <input type="text" class="form-control" id="inputZip">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                      Mes informations sont corrects
+                    </label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary"> Validez l'achat </button>
+              </form>
+
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+
