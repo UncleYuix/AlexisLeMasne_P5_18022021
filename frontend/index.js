@@ -1,4 +1,7 @@
 const UrlApi = "http://localhost:3000/api/cameras";
+
+// Je vais piocher le data de l'API avec un retour erreur si ça ne fonctionne pas avec une fonction asynchrone
+
 async function piocherApi () {
     await fetch(UrlApi)
     .then((response) =>
@@ -8,7 +11,11 @@ async function piocherApi () {
     ).catch(err => console.log('Erreur : ça ne fonctionne pas en ce moment ' + err));
 }
 
+
 piocherApi();
+
+
+// en prenant dans l'API, je crée une partie nouvelle de mon HTML avec les cameras qui s'affiche grace AU DOM
 
 const afficherArticles = (data) => {
     console.log(data);
@@ -31,10 +38,8 @@ const afficherArticles = (data) => {
     document.querySelector('#card_camera').innerHTML = allCameras;
 }
 
+// j'ajoute un style au contenu de l'ID avec querySelector
+
 document.querySelector('#card_camera').style.display = "flex";
 document.querySelector('#card_camera').style.flexWrap = "wrap";
 
-
-
-
-// y'a un problème avec le link, je sais pas faire et je comprend pas
