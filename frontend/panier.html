@@ -53,44 +53,49 @@
                     <th scope="col">Produit</th>
                     <th scope="col">Quantité </th>
                     <th scope="col">Prix </th>
+                    <th scope="col"> <i class="bi bi-trash"></i></th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td> nom de l'appareil photo</td>
-                    <td>1</td>
-                    <td>45000€ </td>
-                  </tr>
+                  <tbody>
+                    <!-- integration JS -->
                 </tbody>
               </table>
+           
         </div>
 
         <div class="col-12 col-lg-4">
 
-            <form>
+            <form id = "formulaireCommande">
                 <div class="form-row pt-5">
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="Jean">
+                        <input type="text" class="form-control" id="formPrenom" placeholder="Jean" required>
                       </div>
                       <div class="col">
-                        <input type="text" class="form-control" placeholder="Neymar">
+                        <input type="text" class="form-control" id="formNom" placeholder="Neymar" required>
                       </div>
+
+                      <span id='missPrenom'></span><br>
+                      <span id='missNom'></span><br>
+
                 </div>
                 <div class="form-group">
                   <label for="inputAddress">Addresse</label>
-                  <input type="text" class="form-control" id="inputAddress" placeholder="13 place du Vélodrôme">
+                  <input type="text" class="form-control" id="inputAddress" placeholder="13 place du Vélodrôme" required>
                 </div>
 
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputCity"> Ville </label>
-                    <input type="text" class="form-control" id="inputCity">
+                    <input type="text" class="form-control" id="inputCity" required>
                   </div>
     
                   <div class="form-group col-md-6">
                     <label for="inputZip">Code Postal </label>
-                    <input type="text" class="form-control" id="inputZip">
+                    <input type="text" class="form-control" id="inputZip" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputZip">Courriel </label>
+                    <input type="text" class="form-control" id="InputEmail" required>
                   </div>
                 </div>
                 <div class="form-group">
@@ -101,7 +106,10 @@
                     </label>
                   </div>
                 </div>
-                <a href="validation.html" class="btn btn-primary" role="button"> Validez l'achat </a>
+
+                <!-- <a href="validation.html"  normalement je dois mettre un lien qui va valider le truc -->
+
+                  <input type='submit' class="btn btn-primary" role="button" id= "btnValiderForm" >
               </form>
 
         </div>
@@ -109,6 +117,13 @@
     </div>
 </div>
 
+
+
+</body>
+
+<script src="panier.js"></script>
+
+</html>
 
 
 
