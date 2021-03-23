@@ -19,60 +19,75 @@ const afficherArticles = (data) => {
   console.log(data);
 };
 
-let article = localStorage.getItem("panier");
-let articleDetails = JSON.parse(article);
+let panier = localStorage.getItem("panier");
+let panierJson = JSON.parse(panier);
 
 // alert(articleDetails.name) // renvoie le nom de la camera
 
-
-
-
 let listePanier = "";
-listePanier += `
+let total = 0;
+if (panierJson !== null) {
+  panierJson.forEach((articleDetails) => {
+    listePanier += `
 
-
-
-
-
-
-        <tr>
-            <th scope="row">1</th>
-                <td> ${articleDetails.name} </td>
-                <td>${articleDetails.quantity}</td>
-                <td>${articleDetails.price / 100} € </td>
-                <td> <button class="delete_article >  style="height:30px" <i class="bi bi-trash";></i><button></td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-                <td> ${articleDetails.name} </td>
-                <td>${articleDetails.quantity}</td>
-                <td>${articleDetails.price / 100} € </td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-        </tr>
+<tr>
+    <th scope="row" id="caca"></th>
+        <td> ${articleDetails.name} </td>
+        <td>${articleDetails.lenses}</td>
+        <td>${articleDetails.price / 100} € </td>
+        <td> <button class="delete_article" id="${articleDetails._id}"> X  </button></td>
+</tr>
 `;
 
-document.querySelector("tbody").innerHTML = listePanier;
+    document.querySelector("tbody").innerHTML = listePanier;
+ document.querySelector("#caca").style.padding  = "0";
 
+ 
+    // on ajoute le total et le suppr :
 
+    total += articleDetails.price;
+  });
 
-// supprimer article 
+  // supprimer article
 
+  document.querySelector(".total").innerHTML = `
+<p class= "border border-danger text-center"> Pour un total de ${total / 100  } € </p> 
+ <button class="delete_article text-center" id="deletePanier"> Suppr  </button> 
+`;
 
+  document
+    .querySelector(".delete_article")
+    .addEventListener("click", (event) => {
+      console.log(event.srcElement.id);
+    });
+
+  const cancelOrder = document.getElementById("deletePanier");
+  cancelOrder.addEventListener("click", () => {
+    cancelOrder();
+    refreshPage();
+
+    function cancelOrder() {}
+    {
+      localStorage.removeItem("panier");
+    }
+
+    function refreshPage() {}
+    {
+      window.location.reload();
+    }
+  });
+}
+
+// LE SUPPR MARCHE PAS
 
 /// bouton Valider
 
 const form = document.querySelector("#formulaireCommande");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  sendform();
+  sendForm();
+  location.href = "validation.html";
 });
-
-let boutonValidation = document.querySelector("#btnValiderForm");
 
 // Recuperer le formulaire
 
@@ -80,14 +95,13 @@ function sendForm() {
   let contact = {
     firstName: document.querySelector("#formPrenom").value,
     lastName: document.querySelector("#formNom").value,
-    address: document.querySelector("#imputAddress").value,
+    address: document.querySelector("#inputAddress").value,
     city: document.querySelector("#inputCity").value,
     zip: document.querySelector("#inputZip").value,
-    email: document.querySelector("#imputEmail").value,
+    email: document.querySelector("#inputEmail").value,
   };
 
-  console.log(contact);
+  localStorage.setItem("contact", JSON.stringify(contact))
 
-  boutonValidation.addEventListener("click", validation);
+  
 }
-

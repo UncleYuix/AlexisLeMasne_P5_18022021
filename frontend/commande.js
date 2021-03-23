@@ -18,6 +18,7 @@ const afficherArticles = (camera) => {
   console.log(camera);
 
   // thisCamera sera la partie 1 à afficher avec l'img  & mySelect sera l'ensemble des choix - allContent les options
+
   let thisCamera = "";
   thisCamera += `
         <div class="row mt-3">
@@ -29,9 +30,10 @@ const afficherArticles = (camera) => {
                 camera.imageUrl
               }" alt="image article">
               <p class="card-text font-italic">${camera.description}</p>
-              <p class="dark">${camera.price / 100} €</p>
+              <p class="dark text-center font-weight-bold">${camera.price / 100} €</p>
           </div>
-        <div class="col-12 col-lg-6 align-items-center">
+        </div>
+        <div class="col-12 col-lg-6 pt-5 pl-5 ml-5  align-items-center" id="menu_deroulant">
           <div class="form-row align-items-center"> 
          
             <div id ="option_choise">    
@@ -49,13 +51,17 @@ const afficherArticles = (camera) => {
      </div>
         `;
 
-
-
   document.querySelector("#card_focus").innerHTML = thisCamera;
+
+
+            
+
 
   // historiquement le bouton est celui là :  <button type="submit" class="btn btn-primary"> Ajouter au panier </button>
 
-  // je crée les options à choisir pour avoir mon déroulant
+  // je crée les options à choisir pour avoir mon déroulant et leur ajoute un style
+
+
 
   const lens = camera.lenses;
   // console.log(lens);
@@ -72,6 +78,12 @@ const afficherArticles = (camera) => {
 
   document.querySelector("#option_choise").innerHTML = monTableau;
 
+
+  document.getElementById("menu_deroulant").style.display = "contents";
+
+
+  
+
   // je fais en sorte que quand je clique le scpipt prend les elements
 
   const boutonAjouter = document.getElementById("btn-ajouter");
@@ -83,58 +95,46 @@ const afficherArticles = (camera) => {
     // console.log(value);
 
 
+
+
     // les elements sont en console, je les envoie donc vers le LocalStorage   (le premier c'est le test avec Cyril, le 2e c'est home-made avec plusieurs valeur)
 
     // function addCameraCart (camera) {
     //   let cartCamera = []
 
-    let articleDetails = {
+
+let panier = localStorage.getItem("panier")
+let panierJson = JSON.parse(panier);
+
+
+
+
+
+
+    if (panier === null ) {
+      panierJson = [];
+     }
+     
+    
+
+      panierJson.push({    
+
       _id : camera._id,
       imageUrl : camera.imageUrl,
       name : camera.name,
       price : camera.price,
       quantity : 1,
       lenses : value
-    }
-  
-  
-article = JSON.stringify(articleDetails);
-localStorage.setItem("panier",article);
-
-
-
-
-  })
-  }
-  
-
-  //   localStorage.setItem(camera.name, value);
-  // });
+        
+   })
+         
+   
 
     
+    article = JSON.stringify(panierJson);
+    return localStorage.setItem("panier",article);
 
-// le bouton Panier est prêt a être cliqué
-
-
-
-
-// je stock maintenant les données
-
-//   const paramPanier = () => {
-//     let ajouterArticle = localStorage.getItem(les);
-//     if(ajouterArticle === null){
-//         return [];
-//     } else {
-//         return JSON.parse(ajouterArticle);
-//     }
-//     console.log(len);
-
-//     // ctrl k + c et ctrl k + u
-// }
-
-/*
-let ajoutPanier = document.querySelector("submit");
-ajoutPanier.addEventListener('click' , () => {
-let select = document.querySelector("submit");
-select = camera.lenses.value; 
-*/
+    console.log(panierJson)
+    
+})
+}
