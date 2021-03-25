@@ -97,16 +97,11 @@ const afficherArticles = (camera) => {
 
 
 
-    // les elements sont en console, je les envoie donc vers le LocalStorage   (le premier c'est le test avec Cyril, le 2e c'est home-made avec plusieurs valeur)
-
-    // function addCameraCart (camera) {
-    //   let cartCamera = []
+    // les elements sont en console, je les envoie donc vers le LocalStorage  
 
 
 let panier = localStorage.getItem("panier")
 let panierJson = JSON.parse(panier);
-
-
 
 
 
@@ -134,7 +129,5 @@ let panierJson = JSON.parse(panier);
     article = JSON.stringify(panierJson);
     return localStorage.setItem("panier",article);
 
-    console.log(panierJson)
-    
 })
 }

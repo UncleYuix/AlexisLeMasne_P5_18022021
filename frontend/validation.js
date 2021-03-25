@@ -4,9 +4,17 @@ let contactJson = JSON.parse(contact);
 document.querySelector(".col-12").innerHTML = `
 
 <div class="jumbotron text-center font-italic">
-    <p> Merci pour votre achat  ${contactJson.firstName}  !</p>
-    <p> Un mail de confirmation va vous être envoyé à l'adresse suivante :   " ${contactJson.email} "</p>
-    <p> à bientot chez Orinoco </p>
- </div> `;
+    <p> Merci pour votre achat  ${contactJson.firstName}  ${contactJson.lastName}  !</p>
+ </div> 
+ <div class="card text-center bg-info mx-auto mb-5">
 
-document.querySelector(".col-12").style.fontSize = "2rem";
+ <p> Votre commande sera envoyée à l'adresse suivante : " ${contactJson.address} à ${contactJson.city} "
+ <p> Un mail de confirmation va vous être envoyé à l'adresse suivante :   " ${contactJson.email} "</p>
+ <p> à bientot chez Orinoco ! </p>
+ <a href="index.html" id="backIndex" class="btn btn-info" role="button">  Retour à l'accueil </a>
+</div>
+ `
+ 
+ ;
+
+document.querySelector(".col-12").style.fontSize = "1.5rem";

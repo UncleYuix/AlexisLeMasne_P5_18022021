@@ -22,30 +22,30 @@ const afficherArticles = (data) => {
 let panier = localStorage.getItem("panier");
 let panierJson = JSON.parse(panier);
 
-// alert(articleDetails.name) // renvoie le nom de la camera
 
 let listePanier = "";
 let total = 0;
 if (panierJson !== null) {
-  panierJson.forEach((articleDetails) => {
+  panierJson.forEach((panierJson) => {
     listePanier += `
 
 <tr>
     <th scope="row" id="caca"></th>
-        <td> ${articleDetails.name} </td>
-        <td>${articleDetails.lenses}</td>
-        <td>${articleDetails.price / 100} € </td>
-        <td> <button class="delete_article" id="${articleDetails._id}"> X  </button></td>
+        <td> ${panierJson.name} </td>
+        <td>${panierJson.lenses}</td>
+        <td>${panierJson.price / 100} € </td>
+        <td> <button class="delete_article" id="${panierJson._id}"> X  </button></td>
 </tr>
 `;
 
-    document.querySelector("tbody").innerHTML = listePanier;
+ document.querySelector("tbody").innerHTML = listePanier;
  document.querySelector("#caca").style.padding  = "0";
 
  
+
     // on ajoute le total et le suppr :
 
-    total += articleDetails.price;
+    total += panierJson.price;
   });
 
   // supprimer article
@@ -55,8 +55,7 @@ if (panierJson !== null) {
  <button class="delete_article text-center" id="deletePanier"> Suppr  </button> 
 `;
 
-  document
-    .querySelector(".delete_article")
+  document.querySelector(".delete_article")
     .addEventListener("click", (event) => {
       console.log(event.srcElement.id);
     });
@@ -78,7 +77,6 @@ if (panierJson !== null) {
   });
 }
 
-// LE SUPPR MARCHE PAS
 
 /// bouton Valider
 
