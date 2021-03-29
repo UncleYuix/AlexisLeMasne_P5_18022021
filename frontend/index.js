@@ -22,7 +22,7 @@ const afficherArticles = (data) => {
                 <div class="card">
                     <img class="card-img-top" src="${
                       camera.imageUrl
-                    }" alt="image article">
+                    }" alt="image camera">
                     <div class="card-body text-center">
                         <p class="card-title display-4">${camera.name}</p>
                         <p class="card-text font-italic">${

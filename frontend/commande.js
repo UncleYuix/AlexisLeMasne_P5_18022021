@@ -30,11 +30,11 @@ const afficherArticles = (camera) => {
                 camera.imageUrl
               }" alt="image article">
               <p class="card-text font-italic">${camera.description}</p>
-              <p class="dark text-center font-weight-bold">${camera.price / 100} €</p>
+              <p class="dark text-center font-weight-bold border border-dark text-danger"> Profitez de ce produit pour : ${camera.price / 100} € au lieu de  <s> ${camera.price / 80 } €   </s> </p>
           </div>
         </div>
         <div class="col-12 col-lg-6 pt-5 pl-5 ml-5  align-items-center" id="menu_deroulant">
-          <div class="form-row align-items-center"> 
+          <div class="form-row align-items-center ml-3"> 
          
             <div id ="option_choise">    
             </div>        

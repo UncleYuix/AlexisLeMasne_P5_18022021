@@ -22,26 +22,25 @@ const afficherArticles = (data) => {
 let panier = localStorage.getItem("panier");
 let panierJson = JSON.parse(panier);
 
-
 let listePanier = "";
 let total = 0;
 if (panierJson !== null) {
   panierJson.forEach((panierJson) => {
     listePanier += `
 
-<tr>
-    <th scope="row" id="caca"></th>
+<tr class="line">
+    <th scope="row" ></th>
         <td> ${panierJson.name} </td>
         <td>${panierJson.lenses}</td>
         <td>${panierJson.price / 100} € </td>
-        <td> <button class="delete_article" id="${panierJson._id}"> X  </button></td>
+        <td> <button class="delete_line" id="${
+          panierJson._id
+        }"> X  </button></td>
 </tr>
 `;
 
- document.querySelector("tbody").innerHTML = listePanier;
- document.querySelector("#caca").style.padding  = "0";
-
- 
+    document.querySelector("tbody").innerHTML = listePanier;
+   
 
     // on ajoute le total et le suppr :
 
@@ -51,32 +50,30 @@ if (panierJson !== null) {
   // supprimer article
 
   document.querySelector(".total").innerHTML = `
-<p class= "border border-danger text-center"> Pour un total de ${total / 100  } € </p> 
- <button class="delete_article text-center" id="deletePanier"> Suppr  </button> 
+<p class= "border border-danger text-center"> Pour un total <span id="total_price"> ${total / 100} </span> € </p> 
+ <button class="delete_article text-center" id="deletePanier"> Supprimer le panier  </button> 
 `;
 
-  document.querySelector(".delete_article")
-    .addEventListener("click", (event) => {
+  let buttons = document.getElementsByClassName("delete_line");
+ for(let i = 0 ; i < buttons.length; i++ ) {
+    buttons[i].addEventListener("click", (event) => {
       console.log(event.srcElement.id);
+      document.getElementById(event.srcElement.id).closest(".line").remove()
+
+      // mettre un code pour enlever le produit dans l'id est récup dans src 
+      // et mettre à jour le produit avec le nouveau chiffre mis à jour
+    // le prix total en récupérant le prix suppr et soustraire dans la formule
     });
+  }
+
+  //  console.log(event.srcElement.id); juste après le addevent
 
   const cancelOrder = document.getElementById("deletePanier");
   cancelOrder.addEventListener("click", () => {
-    cancelOrder();
-    refreshPage();
-
-    function cancelOrder() {}
-    {
-      localStorage.removeItem("panier");
-    }
-
-    function refreshPage() {}
-    {
-      window.location.reload();
-    }
+    localStorage.removeItem("panier");
+    window.location.reload();
   });
 }
-
 
 /// bouton Valider
 
@@ -99,7 +96,5 @@ function sendForm() {
     email: document.querySelector("#inputEmail").value,
   };
 
-  localStorage.setItem("contact", JSON.stringify(contact))
-
-  
+  localStorage.setItem("contact", JSON.stringify(contact));
 }
