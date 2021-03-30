@@ -26,11 +26,10 @@ const afficherArticles = (camera) => {
         
           <div class="card-body">
               <p class="card-title display-4">${camera.name}</p>
-              <img class="card-img-top" src="${
-                camera.imageUrl
-              }" alt="image article">
+              <img class="card-img-top" src="${ camera.imageUrl              }" alt="image article">
               <p class="card-text font-italic">${camera.description}</p>
-              <p class="dark text-center font-weight-bold border border-dark text-danger"> Profitez de ce produit pour : ${camera.price / 100} € au lieu de  <s> ${camera.price / 80 } €   </s> </p>
+              <p class="dark text-center font-weight-bold border border-dark text-danger"> 
+                Profitez de ce produit pour : ${camera.price / 100} € au lieu de  <s> ${camera.price / 80 } €   </s> </p>
           </div>
         </div>
         <div class="col-12 col-lg-6 pt-5 pl-5 ml-5  align-items-center" id="menu_deroulant">
@@ -54,17 +53,12 @@ const afficherArticles = (camera) => {
   document.querySelector("#card_focus").innerHTML = thisCamera;
 
 
-            
-
-
-  // historiquement le bouton est celui là :  <button type="submit" class="btn btn-primary"> Ajouter au panier </button>
 
   // je crée les options à choisir pour avoir mon déroulant et leur ajoute un style
 
 
 
   const lens = camera.lenses;
-  // console.log(lens);
 
   let monTableau = '<select id="tab" class="custom-select mr-sm-2 lg-12">';
   let mesChoix = "";
@@ -77,12 +71,8 @@ const afficherArticles = (camera) => {
   monTableau += "</select>";
 
   document.querySelector("#option_choise").innerHTML = monTableau;
-
-
   document.getElementById("menu_deroulant").style.display = "contents";
 
-
-  
 
   // je fais en sorte que quand je clique le scpipt prend les elements
 
@@ -92,9 +82,7 @@ const afficherArticles = (camera) => {
 
     let intelTab = document.getElementById("tab");
     let value = intelTab.options[intelTab.selectedIndex].text;
-    // console.log(value);
-
-
+  
 
 
     // les elements sont en console, je les envoie donc vers le LocalStorage  
@@ -105,13 +93,11 @@ let panierJson = JSON.parse(panier);
 
 
 
-
     if (panier === null ) {
       panierJson = [];
      }
      
     
-
       panierJson.push({    
 
       _id : camera._id,
@@ -123,9 +109,6 @@ let panierJson = JSON.parse(panier);
         
    })
          
-   
-
-    
     article = JSON.stringify(panierJson);
     return localStorage.setItem("panier",article);
 
