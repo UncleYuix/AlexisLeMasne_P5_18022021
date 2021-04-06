@@ -70,34 +70,28 @@
             <form id="formulaireCommande">
                 <div class="form-row pt-5">
                     <div class="col">
-                        <input type="text" class="form-control" id="formPrenom" placeholder="Jean" required>
+                        <input type="text" pattern="^[( )a-zA-Z]+$"  class="form-control" id="formPrenom" placeholder="Jean" required>
                       </div>
                       <div class="col">
-                        <input type="text" class="form-control" id="formNom" placeholder="Neymar" required>
+                        <input type="text" pattern="^[( )a-zA-Z]+$"  class="form-control" id="formNom" placeholder="Neymar" required>
                       </div>
-
-                      <span id='missPrenom'></span><br>
-                      <span id='missNom'></span><br>
 
                 </div>
                 <div class="form-group">
-                  <label for="inputAddress">Addresse</label>
-                  <input type="text" class="form-control" id="inputAddress" placeholder="13 place du Vélodrôme" required>
+                  <label for="inputAddress">Adresse</label>
+                  <input type="text"  class="form-control" id="inputAddress" placeholder="13 place du Vélodrôme" required>
                 </div>
 
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputCity"> Ville </label>
-                    <input type="text" class="form-control" id="inputCity" required>
+                    <input type="text" pattern="^[( )a-zA-Z]+$"  class="form-control" id="inputCity" required>
                   </div>
     
-                  <div class="form-group col-md-6">
-                    <label for="inputZip">Code Postal </label>
-                    <input type="text" class="form-control" id="inputZip" required>
-                  </div>
+
                   <div class="form-group col-md-6">
                     <label for="inputZip">Courriel </label>
-                    <input type="text" class="form-control" id="inputEmail" required>
+                    <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" id="inputEmail" required>
                   </div>
                 </div>
                
@@ -115,7 +109,8 @@
 
 
 </body>
-
+<script src="classes/API.js"></script>
+<script src="classes/SuperPanier.js"></script>
 <script src="panier.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

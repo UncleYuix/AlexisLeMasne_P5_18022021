@@ -1,20 +1,26 @@
+
+
+// On récupère les données de les données de l'achat : prix total - qui a acheté - et l'ID de retour d'API
+
+
 let contact = localStorage.getItem("contact");
 let contactJson = JSON.parse(contact);
-const orderID = JSON.parse(localStorage.getItem("orderId"));
 
 let panier = localStorage.getItem("panier");
 let panierJson = JSON.parse(panier);
 
+let facture = localStorage.getItem('facture');
 
-// On veut faire avoir la reponse de l'API sur la request d'achat AINSI que le prix 
 
+
+// On met en forme les réponses en fonction des achats et du contacts
 
 document.querySelector(".col-12").innerHTML = `
 
 <div class="jumbotron text-center font-italic">
     <p> Merci pour votre achat  ${contactJson.firstName}  ${contactJson.lastName}  !</p> 
-    <p> Un total de  </p>
-    <p> bon de commande n° </p>
+    <p> Un total de  ${facture} €  </p>
+    <p> bon de commande n°   </p>
  </div> 
  <div class="card text-center bg-info mx-auto mb-5">
 
@@ -28,18 +34,18 @@ document.querySelector(".col-12").innerHTML = `
  // il faut inserer : <p> commande n° ${orderId} </p>
   
 
+// On met un touch de style sur la taille du texte
+
 document.querySelector(".col-12").style.fontSize = "1.5rem";
 
-// On fait un retour à la page d'accueil qui supprimera le storage mais c'est pas la bonne méthode )
+
+// On fait un retour à la page d'accueil qui supprimera le storage. (celà simule un achat réel vu qu'il n'y a pas d'envoi (!) 
 
 const supprStorage = document.getElementById("backIndex");
 supprStorage.addEventListener("click", function () {
   
-    supprStorage ()
-    
-    function supprStorage() {}
-    {
       localStorage.removeItem("contact");
       localStorage.removeItem("panier");
+      localStorage.removeItem('facture');
     }
-})
+)

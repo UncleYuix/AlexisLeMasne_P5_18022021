@@ -1,35 +1,41 @@
-const queryString = window.location.search;
-const UrlParams = new URLSearchParams(queryString);
-const id = UrlParams.get("id");
-const UrlApi = "http://localhost:3000/api/cameras/" + id;
-async function piocherApi() {
-  await fetch(UrlApi)
-    .then((response) => response.json().then((data) => afficherArticles(data)))
-    .catch((err) =>
-      console.log("Erreur : ça ne fonctionne pas en ce moment " + err)
-    );
+
+// je prépare ma création de panier et de prix
+
+function getIdProductFromUrl(){
+    const queryString = window.location.search;
+    const UrlParams = new URLSearchParams(queryString);
+    return UrlParams.get("id");
 }
 
-piocherApi();
+async function setProduct() {
+    const id = getIdProductFromUrl()
+    let myApi = new API()
+    await myApi._fetchOneProduct(id).then(function(camera) {
+        console.log(camera)
+        afficherArticles(camera)
+    })
+}
+setProduct()
+
 
 // je crée la section à afficher en html
+function afficherArticles(camera){
+    console.log(camera);
 
-const afficherArticles = (camera) => {
-  console.log(camera);
+    // thisCamera sera la partie 1 à afficher avec : Nom / img / desc  -
+    //  j'ajoute dans un 2e temps l'ensemble des choix dans le tableau et option_choise pour les les options
 
-  // thisCamera sera la partie 1 à afficher avec l'img  & mySelect sera l'ensemble des choix - allContent les options
-
-  let thisCamera = "";
-  thisCamera += `
+    let thisCamera = "";
+    thisCamera += `
         <div class="row mt-3">
         <div class="col-12 col-lg-5">
         
           <div class="card-body">
               <p class="card-title display-4">${camera.name}</p>
-              <img class="card-img-top" src="${ camera.imageUrl              }" alt="image article">
+              <img class="card-img-top" src="${camera.imageUrl}" alt="image article">
               <p class="card-text font-italic">${camera.description}</p>
               <p class="dark text-center font-weight-bold border border-dark text-danger"> 
-                Profitez de ce produit pour : ${camera.price / 100} € au lieu de  <s> ${camera.price / 80 } €   </s> </p>
+                Profitez de ce produit pour : ${camera.price / 100} € au lieu de  <s> ${camera.price / 80} €   </s> </p>
           </div>
         </div>
         <div class="col-12 col-lg-6 pt-5 pl-5 ml-5  align-items-center" id="menu_deroulant">
@@ -50,67 +56,52 @@ const afficherArticles = (camera) => {
      </div>
         `;
 
-  document.querySelector("#card_focus").innerHTML = thisCamera;
+    document.querySelector("#card_focus").innerHTML = thisCamera;
 
 
-
-  // je crée les options à choisir pour avoir mon déroulant et leur ajoute un style
-
+    // je crée les options à choisir pour avoir mon déroulant et leur ajoute un style
 
 
-  const lens = camera.lenses;
+    const lens = camera.lenses;
 
-  let monTableau = '<select id="tab" class="custom-select mr-sm-2 lg-12">';
-  let mesChoix = "";
-  let len = camera.lenses.value;
+    let monTableau = '<select id="tab" class="custom-select mr-sm-2 lg-12">';
+    let mesChoix = "";
+    let len = camera.lenses.value;
 
-  lens.forEach(function (len) {
-    mesChoix += "<option>" + len + "</option>";
-  });
-  monTableau += mesChoix;
-  monTableau += "</select>";
+    lens.forEach(function (len) {
+        mesChoix += "<option>" + len + "</option>";
+    });
+    monTableau += mesChoix;
+    monTableau += "</select>";
 
-  document.querySelector("#option_choise").innerHTML = monTableau;
-  document.getElementById("menu_deroulant").style.display = "contents";
-
-
-  // je fais en sorte que quand je clique le scpipt prend les elements
-
-  const boutonAjouter = document.getElementById("btn-ajouter");
-  boutonAjouter.addEventListener("click", function () {
-    boutonAjouter.innerHTML = "commande validée !";
-
-    let intelTab = document.getElementById("tab");
-    let value = intelTab.options[intelTab.selectedIndex].text;
-  
+    document.querySelector("#option_choise").innerHTML = monTableau;
+    document.getElementById("menu_deroulant").style.display = "contents";
 
 
-    // les elements sont en console, je les envoie donc vers le LocalStorage  
+    // je fais en sorte que quand je clique le scpipt prend les elements
+
+    const boutonAjouter = document.getElementById("btn-ajouter");
+    boutonAjouter.addEventListener("click", function () {
+        boutonAjouter.innerHTML = "commande validée !";
+
+        let intelTab = document.getElementById("tab");
+        let value = intelTab.options[intelTab.selectedIndex].text;
 
 
-let panier = localStorage.getItem("panier")
-let panierJson = JSON.parse(panier);
+    // les elements sont en console, je les envoie donc vers le LocalStorage afin de conserver mon panier, un suivi existe par la classe superPanier 
 
 
+        let panier = new SuperPanier()
+        let article = {
+            _id: camera._id,
+            imageUrl: camera.imageUrl,
+            name: camera.name,
+            price: camera.price,
+            quantity: 1,
+            lenses: value
+        }
+        panier._addArticle(article)
 
-    if (panier === null ) {
-      panierJson = [];
-     }
-     
-    
-      panierJson.push({    
 
-      _id : camera._id,
-      imageUrl : camera.imageUrl,
-      name : camera.name,
-      price : camera.price,
-      quantity : 1,
-      lenses : value
-        
-   })
-         
-    article = JSON.stringify(panierJson);
-    return localStorage.setItem("panier",article);
-
-})
+    })
 }

@@ -1,139 +1,118 @@
-const UrlApi = "http://localhost:3000/api/cameras";
-
-// Je vais piocher le data de l'API avec un retour erreur si ça ne fonctionne pas avec une fonction asynchrone
-
-async function piocherApi() {
-  await fetch(UrlApi)
-    .then((response) => response.json().then((data) => afficherArticles(data)))
-    .catch((err) =>
-      console.log(
-        "Erreur : ça ne fonctionne pas en ce moment, nous faisons au mieux " +
-          err
-      )
-    );
-}
-
-piocherApi();
-
-const afficherArticles = (data) => {
-  console.log(data);
-};
-
 // recuperation storage et ajout tableau
-
-let panier = localStorage.getItem("panier");
-let panierJson = JSON.parse(panier);
+let mySuperPanier = new SuperPanier();
+panier = mySuperPanier._getPanier();
 
 let listePanier = "";
 let total = 0;
-if (panierJson !== null) {
-  panierJson.forEach((panierJson) => {
-    listePanier += `
+panier.forEach((oneItem) => {
+  listePanier += `
 
 <tr class="line">
     <th scope="row" ></th>
-        <td> ${panierJson.name} </td>
-        <td>${panierJson.lenses}</td>
-        <td>${panierJson.price / 100} € </td>
-        <td> <button class="delete_line" id="${
-          panierJson._id
-        }"> X  </button></td>
+        <td> ${oneItem.name} </td>
+        <td>${oneItem.lenses}</td>
+        <td>${oneItem.price / 100} € </td>
+        <td> <button class="delete_line" id="${oneItem._id}"> X  </button></td>
 </tr>
 `;
 
-    document.querySelector("tbody").innerHTML = listePanier;
+  document.querySelector("tbody").innerHTML = listePanier;
+
+
 
   // on ajoute le total et le suppr :
 
-    total += panierJson.price;
-  });
+  total += oneItem.price;
+});
 
-  document.querySelector(".total").innerHTML = `
+document.querySelector(".total").innerHTML = `
 <p class= "border border-danger text-center"> Pour un total <span id="total_price"> ${
-    total / 100
-  } </span> € </p> 
+  total / 100
+} </span> € </p> 
  <button class="delete_article text-center" id="deletePanier"> Supprimer le panier  </button> 
 `;
 
 // on VEUT supprimer un ligne uniquement et update le storage
 
-  let buttons = document.getElementsByClassName("delete_line");
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener("click", (event) => {
-      console.log(event.srcElement.id);
-      document.getElementById(event.srcElement.id).closest(".line").remove();
-      localStorage.removeItem(panierJson_.id);
+let buttons = document.getElementsByClassName("delete_line");
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", (event) => {
+    let idToRemove = event.target.id;
+    document.getElementById(idToRemove).closest(".line").remove();
 
-      // mettre un code pour enlever le produit dans l'id est récup dans src
-      // et mettre à jour le produit avec le nouveau chiffre mis à jour
-      // le prix total en récupérant le prix suppr et soustraire dans la formule
-    });
-  }
+    // Ici on souhaite supprimer "idToRemove" dans le panier du localStorage
 
-
-// On supprime le panier entier
-
-  const cancelOrder = document.getElementById("deletePanier");
-  cancelOrder.addEventListener("click", () => {
-    localStorage.removeItem("panier");
-    window.location.reload();
+    let panier = new SuperPanier();
+    // let panier = JSON.parse(localStorage.getItem("panier"))
+    console.log("Panier avant suppression :", panier.content);
+    panier._removeArticle(idToRemove);
+    console.log("Panier après suppression :", panier.content);
   });
 }
 
-// bouton Valider et redirection si panier plein
+// On supprime le panier entier
 
-const form = document.querySelector("#formulaireCommande");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  sendForm();
-  if (panierJson === null) {
-    alert("Veuillez mettre un élement au panier pour valider un achat ");
-  } else {
-    location.href = "validation.html";
-  }
+const cancelOrder = document.getElementById("deletePanier");
+cancelOrder.addEventListener("click", () => {
+  localStorage.removeItem("panier");
+  window.location.reload();
 });
 
-// Recuperer le formulaire et l'ID
+// Le formulaire est déjà construit, on a juste a "lier" les données avec JS
 
-function sendForm() {
+const form = document.querySelector("#formulaireCommande");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
   let contact = {
     firstName: document.querySelector("#formPrenom").value,
     lastName: document.querySelector("#formNom").value,
     address: document.querySelector("#inputAddress").value,
     city: document.querySelector("#inputCity").value,
-    zip: document.querySelector("#inputZip").value,
     email: document.querySelector("#inputEmail").value,
   };
 
-  localStorage.setItem("contact", JSON.stringify(contact));
-}
+// si le panier n'est pas vide, on va du coup charger une "fiche produit" avec une ID et une facture dans la page de validation
 
-//   let products = [];
-//   if (localStorage.getItem("panier") !== null) {
-//     let productTab = JSON.parse("panier");
+  let products = [];
+  if (localStorage.getItem("panier") !== null) {
+    let productTab = JSON.parse(localStorage.getItem("panier"));
+    productTab.forEach((p) => {
+      products.push(p._id);
+    });
 
-//     productTab.forEach ( p => {
-//       products.push(p._id);
-//   })
+    let commandeContact = JSON.stringify({
+      contact,
+      products,
+    });
+    // localStorage.setItem("orderId", JSON.stringify(product.push(p._id)));
+    localStorage.setItem("contact", JSON.stringify(contact));
 
-//   let contactItems = JSON.stringify(
-//     {contact, products
-//     })
+    console.log(commandeContact);
 
-//     postOrder(contactItems);
-//   }
-// }
+// je fais ma request POST afin de récuperer l'id de validation par l'API dans le format demandé (contacts, products)
 
-// // ------------------- request POST ----------------------
-
-//   fetch("http://localhost:3000/api/cameras/order", {
-//     method: 'POST',
-//     headers : {
-//       'Content-Type': 'application/json'
-//     },
-//     mode:'cors',
-//     body: contactItems
-//   })
-//     .then(response => {
-//       return response.json()
-//     })
+    fetch("http://localhost:3000/api/cameras/order", {
+      method: "POST",
+      body: commandeContact,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((r) => {
+        const orderId = r.orderId;
+        if (orderId == undefined) {
+          alert("veuillez remplir tous les champs");
+        } else {
+          let facture = localStorage.getItem("facture");
+          window.location.href = `validation.html?orderId=${orderId}%price=${facture}`;
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+});
