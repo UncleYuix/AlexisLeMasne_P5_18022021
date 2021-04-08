@@ -1,18 +1,24 @@
-const UrlApi = "http://localhost:3000/api/cameras";
+
 
 // ma fonction asynchrone pour piocher le data de l'API avec un retour erreur si ça ne fonctionne pas.
 
-async function piocherApi() {
-  await fetch(UrlApi)
-    .then((response) => response.json().then((cameras) => afficherArticles(cameras)))
-    .catch((err) =>
-      console.log("Erreur : ça ne fonctionne pas en ce moment " + err)
-    );
-}
 
-piocherApi();
+
+
+async function setProduct() {
+  let myApi = new API()
+  await myApi._fetchAllProduct().then(function(camera) {
+      console.log(camera)
+      afficherArticles(camera)
+  })
+}
+setProduct()
+
+
 
 // en prenant dans l'API, je crée une partie nouvelle de mon HTML avec les cameras qui s'affichent dans "card_camera" [qui inclus le Bootstrap]
+
+// myDomafficherarticle() ligne 22
 
 const afficherArticles = (cameras) => {
   console.log(cameras);

@@ -1,6 +1,7 @@
 class API {
     constructor() {
-        this.url = "http://localhost:3000/api/cameras/"
+      //  this.url = "http://localhost:3000/api/cameras/"
+      this.url = "https://ab-p5-api.herokuapp.com/api/cameras/"
     }
 
     async _fetchAllProduct() {
@@ -18,5 +19,4 @@ class API {
                 console.log("Erreur : ça ne fonctionne pas en ce moment " + err)
             );
     }
-
 }

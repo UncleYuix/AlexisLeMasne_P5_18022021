@@ -2,6 +2,13 @@
 let mySuperPanier = new SuperPanier();
 panier = mySuperPanier._getPanier();
 
+
+let myDOM = new DomManagement();
+myDOM.displayItemFromCart(panier)
+ // dans cette methode je met tout la suite mais je découpe en methode à l'interieur genre les deletes / addevent
+
+monJolipanier() 
+
 let listePanier = "";
 let total = 0;
 panier.forEach((oneItem) => {
@@ -17,8 +24,6 @@ panier.forEach((oneItem) => {
 `;
 
   document.querySelector("tbody").innerHTML = listePanier;
-
-
 
   // on ajoute le total et le suppr :
 
@@ -72,7 +77,7 @@ form.addEventListener("submit", (e) => {
     email: document.querySelector("#inputEmail").value,
   };
 
-// si le panier n'est pas vide, on va du coup charger une "fiche produit" avec une ID et une facture dans la page de validation
+  // si le panier n'est pas vide, on va du coup charger une "fiche produit" avec une ID et une facture dans la page de validation
 
   let products = [];
   if (localStorage.getItem("panier") !== null) {
@@ -85,14 +90,19 @@ form.addEventListener("submit", (e) => {
       contact,
       products,
     });
-    // localStorage.setItem("orderId", JSON.stringify(product.push(p._id)));
+
     localStorage.setItem("contact", JSON.stringify(contact));
 
     console.log(commandeContact);
 
-// je fais ma request POST afin de récuperer l'id de validation par l'API dans le format demandé (contacts, products)
+    // je fais ma request POST afin de récuperer l'id de validation par l'API dans le format demandé (contacts, products)
 
-    fetch("http://localhost:3000/api/cameras/order", {
+  //  fetch("http://localhost:3000/api/cameras/order", {
+
+
+  // mettre le POST dans la fonction API comme ses potes GET 
+  
+    fetch("https://ab-p5-api.herokuapp.com/api/cameras/order", {  
       method: "POST",
       body: commandeContact,
       headers: {
@@ -105,9 +115,10 @@ form.addEventListener("submit", (e) => {
       .then((r) => {
         const orderId = r.orderId;
         if (orderId == undefined) {
-          alert("veuillez remplir tous les champs");
+          alert("veuillez renseigner ce champ");
         } else {
           let facture = localStorage.getItem("facture");
+          localStorage.setItem("order", orderId);
           window.location.href = `validation.html?orderId=${orderId}%price=${facture}`;
         }
       })
