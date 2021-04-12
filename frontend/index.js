@@ -1,27 +1,19 @@
-
-
 // ma fonction asynchrone pour piocher le data de l'API avec un retour erreur si ça ne fonctionne pas.
-
-
-
 
 async function setProduct() {
   let myApi = new API()
   await myApi._fetchAllProduct().then(function(camera) {
       console.log(camera)
-      afficherArticles(camera)
+      afficherArticles(camera) 
   })
 }
 setProduct()
 
-
-
 // en prenant dans l'API, je crée une partie nouvelle de mon HTML avec les cameras qui s'affichent dans "card_camera" [qui inclus le Bootstrap]
 
-// myDomafficherarticle() ligne 22
 
-const afficherArticles = (cameras) => {
-  console.log(cameras);
+
+  afficherArticles = (cameras) => {
   let allCameras = "";
   for (let camera of cameras) {
     allCameras +=

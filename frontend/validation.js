@@ -12,7 +12,8 @@ let orderId = localStorage.getItem("order");
 
 // On met en forme les réponses en fonction des achats et du contacts
 
-document.querySelector(".col-12").innerHTML = `
+async function validationDOM() {
+  document.querySelector(".col-12").innerHTML = `
 
 <div class="jumbotron text-center font-italic">
     <p> Merci pour votre achat  ${contactJson.firstName}  ${contactJson.lastName}  !</p> 
@@ -27,8 +28,9 @@ document.querySelector(".col-12").innerHTML = `
  <a href="index.html" id="backIndex" class="btn btn-info" role="button">  Retour à l'accueil </a>
 </div>
  `;
+}
 
-// il faut inserer : <p> commande n° ${orderId} </p>
+validationDOM();
 
 // On met un touch de style sur la taille du texte
 

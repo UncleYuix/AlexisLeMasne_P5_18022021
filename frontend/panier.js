@@ -1,18 +1,17 @@
 // recuperation storage et ajout tableau
-let mySuperPanier = new SuperPanier();
+let mySuperPanier = new cart();
 panier = mySuperPanier._getPanier();
 
+// let myDOM = new DomManagement();
+// myDOM.displayItemFromCart(panier)
 
-let myDOM = new DomManagement();
-myDOM.displayItemFromCart(panier)
- // dans cette methode je met tout la suite mais je découpe en methode à l'interieur genre les deletes / addevent
+// dans cette methode je met tout la suite mais je découpe en methode à l'interieur genre les deletes / addevent
 
-monJolipanier() 
-
-let listePanier = "";
-let total = 0;
-panier.forEach((oneItem) => {
-  listePanier += `
+async function tableauDOM() {
+  let listePanier = "";
+  let total = 0;
+  panier.forEach((oneItem) => {
+    listePanier += `
 
 <tr class="line">
     <th scope="row" ></th>
@@ -22,20 +21,22 @@ panier.forEach((oneItem) => {
         <td> <button class="delete_line" id="${oneItem._id}"> X  </button></td>
 </tr>
 `;
+    document.querySelector("tbody").innerHTML = listePanier;
 
-  document.querySelector("tbody").innerHTML = listePanier;
+    // on ajoute le total et le suppr :
 
-  // on ajoute le total et le suppr :
+    total += oneItem.price;
+  });
 
-  total += oneItem.price;
-});
-
-document.querySelector(".total").innerHTML = `
+  document.querySelector(".total").innerHTML = `
 <p class= "border border-danger text-center"> Pour un total <span id="total_price"> ${
-  total / 100
-} </span> € </p> 
+    total / 100
+  } </span> € </p> 
  <button class="delete_article text-center" id="deletePanier"> Supprimer le panier  </button> 
 `;
+}
+
+tableauDOM();
 
 // on VEUT supprimer un ligne uniquement et update le storage
 
@@ -47,7 +48,7 @@ for (let i = 0; i < buttons.length; i++) {
 
     // Ici on souhaite supprimer "idToRemove" dans le panier du localStorage
 
-    let panier = new SuperPanier();
+    let panier = new cart();
     // let panier = JSON.parse(localStorage.getItem("panier"))
     console.log("Panier avant suppression :", panier.content);
     panier._removeArticle(idToRemove);
@@ -97,12 +98,16 @@ form.addEventListener("submit", (e) => {
 
     // je fais ma request POST afin de récuperer l'id de validation par l'API dans le format demandé (contacts, products)
 
-  //  fetch("http://localhost:3000/api/cameras/order", {
+    // mettre le POST dans la fonction API comme ses potes GET
 
+    // async function fetchOrder() {
+    //   let myApi = new API()
+    //   await myApi._fetchOrder()
+    // }
 
-  // mettre le POST dans la fonction API comme ses potes GET 
-  
-    fetch("https://ab-p5-api.herokuapp.com/api/cameras/order", {  
+    // fetchOrder()
+
+    fetch("http://localhost:3000/api/cameras/order", {
       method: "POST",
       body: commandeContact,
       headers: {
@@ -114,8 +119,8 @@ form.addEventListener("submit", (e) => {
       })
       .then((r) => {
         const orderId = r.orderId;
-        if (orderId == undefined) {
-          alert("veuillez renseigner ce champ");
+        if (panier == undefined) {
+          alert("Acheter un produit au préalable pour faire une commande !");
         } else {
           let facture = localStorage.getItem("facture");
           localStorage.setItem("order", orderId);

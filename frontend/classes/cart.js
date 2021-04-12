@@ -1,4 +1,4 @@
-class SuperPanier {
+class cart {
     constructor() {
         console.log("Création du panierTest")
         this.keyOfLocalStorage = "panier"
