@@ -7,36 +7,7 @@ panier = mySuperPanier._getPanier();
 
 // dans cette methode je met tout la suite mais je découpe en methode à l'interieur genre les deletes / addevent
 
-async function tableauDOM() {
-  let listePanier = "";
-  let total = 0;
-  panier.forEach((oneItem) => {
-    listePanier += `
-
-<tr class="line">
-    <th scope="row" ></th>
-        <td> ${oneItem.name} </td>
-        <td>${oneItem.lenses}</td>
-        <td>${oneItem.price / 100} € </td>
-        <td> <button class="delete_line" id="${oneItem._id}"> X  </button></td>
-</tr>
-`;
-    document.querySelector("tbody").innerHTML = listePanier;
-
-    // on ajoute le total et le suppr :
-
-    total += oneItem.price;
-  });
-
-  document.querySelector(".total").innerHTML = `
-<p class= "border border-danger text-center"> Pour un total <span id="total_price"> ${
-    total / 100
-  } </span> € </p> 
- <button class="delete_article text-center" id="deletePanier"> Supprimer le panier  </button> 
-`;
-}
-
-tableauDOM();
+customDOM._tableauDOM();
 
 // on VEUT supprimer un ligne uniquement et update le storage
 
@@ -46,7 +17,7 @@ for (let i = 0; i < buttons.length; i++) {
     let idToRemove = event.target.id;
     document.getElementById(idToRemove).closest(".line").remove();
 
-    // Ici on souhaite supprimer "idToRemove" dans le panier du localStorage
+    // Ici on souhaite supprimer un element dans le panier du localStorage
 
     let panier = new cart();
     // let panier = JSON.parse(localStorage.getItem("panier"))
@@ -70,65 +41,11 @@ const form = document.querySelector("#formulaireCommande");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  let contact = {
-    firstName: document.querySelector("#formPrenom").value,
-    lastName: document.querySelector("#formNom").value,
-    address: document.querySelector("#inputAddress").value,
-    city: document.querySelector("#inputCity").value,
-    email: document.querySelector("#inputEmail").value,
-  };
+  API._fetchOrder()
+});
 
   // si le panier n'est pas vide, on va du coup charger une "fiche produit" avec une ID et une facture dans la page de validation
 
-  let products = [];
-  if (localStorage.getItem("panier") !== null) {
-    let productTab = JSON.parse(localStorage.getItem("panier"));
-    productTab.forEach((p) => {
-      products.push(p._id);
-    });
 
-    let commandeContact = JSON.stringify({
-      contact,
-      products,
-    });
 
-    localStorage.setItem("contact", JSON.stringify(contact));
 
-    console.log(commandeContact);
-
-    // je fais ma request POST afin de récuperer l'id de validation par l'API dans le format demandé (contacts, products)
-
-    // mettre le POST dans la fonction API comme ses potes GET
-
-    // async function fetchOrder() {
-    //   let myApi = new API()
-    //   await myApi._fetchOrder()
-    // }
-
-    // fetchOrder()
-
-    fetch("http://localhost:3000/api/cameras/order", {
-      method: "POST",
-      body: commandeContact,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((r) => {
-        const orderId = r.orderId;
-        if (panier == undefined) {
-          alert("Acheter un produit au préalable pour faire une commande !");
-        } else {
-          let facture = localStorage.getItem("facture");
-          localStorage.setItem("order", orderId);
-          window.location.href = `validation.html?orderId=${orderId}%price=${facture}`;
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
-});
