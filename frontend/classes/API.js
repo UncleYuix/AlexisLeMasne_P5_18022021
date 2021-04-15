@@ -41,7 +41,7 @@ class API {
           products.push(p._id);
         });
 
-        // utilisation de la
+        // utilisation de la class
     
         let commandeContact = JSON.stringify({
           contact,

@@ -13,7 +13,7 @@ class customDOM {
                     <p class="card-title display-4">${camera.name}</p>
                     <p class="card-text font-italic">${camera.description}</p>
                     <p class="dark">${camera.price / 100} €</p>
-                    <a href=commande.html?id=${
+                    <a href=command.html?id=${
                       camera._id
                     } class="btn btn-info col-6" role="button"> Details </a>
                  </div>
@@ -55,7 +55,7 @@ class customDOM {
             </div>         
       </form>
             <div class="col-auto my-1">     
-                <a href="panier.html" id=\"panier\" class="btn btn-info" role="button">  <i class="fa fa-shopping-cart"></i> Panier </a>
+                <a href="cart.html" id=\"panier\" class="btn btn-info" role="button">  <i class="fa fa-shopping-cart"></i> Panier </a>
             </div>
          </div>        
      </div>
@@ -82,7 +82,7 @@ class customDOM {
   }
 
 
-// appellé page panier.html
+// appellé page cart.html
 
   static _tableauDOM() {
     let listePanier = "";
