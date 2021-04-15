@@ -40,6 +40,8 @@ class API {
         productTab.forEach((p) => {
           products.push(p._id);
         });
+
+        // utilisation de la
     
         let commandeContact = JSON.stringify({
           contact,
