@@ -2,8 +2,6 @@
 let mySuperPanier = new cart();
 panier = mySuperPanier._getPanier();
 
-// let myDOM = new DomManagement();
-// myDOM.displayItemFromCart(panier)
 
 // dans cette methode je met tout la suite mais je découpe en methode à l'interieur genre les deletes / addevent
 
@@ -20,7 +18,6 @@ for (let i = 0; i < buttons.length; i++) {
     // Ici on souhaite supprimer un element dans le panier du localStorage
 
     let panier = new cart();
-    // let panier = JSON.parse(localStorage.getItem("panier"))
     console.log("Panier avant suppression :", panier.content);
     panier._removeArticle(idToRemove);
     console.log("Panier après suppression :", panier.content);
